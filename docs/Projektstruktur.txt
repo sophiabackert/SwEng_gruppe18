@@ -1,0 +1,44 @@
+project-root/
+│
+├── src/
+│   ├── mm/app/               # Einstiegspunkt: Main.java – startet das Spiel
+│   ├── mm/core/              # Zentrale Spiellogik, Simulation & Physik
+│   │   ├── physics/          # Physikalische Modelle, jBox2D-Wrapper, Kollision
+│   │   └── simulation/       # Zustandssteuerung, Spielschritte, Timer
+│   │
+│   ├── mm/editor/            # Level-Editor-Logik (Editiermodus)
+│   │   ├── tools/            # Werkzeuge: Platzieren, Löschen, Drag & Drop
+│   │   └── ui/               # Spezielle GUI-Komponenten für Editor-Modus
+│   │
+│   ├── mm/game/              # Puzzle-Modus und Spiellogik
+│   │   ├── level/            # Leveldefinition, Ziele, Lade-/Speicherlogik
+│   │   └── inventory/        # Bauteil-Beschränkungen, Inventarverwaltung
+│   │
+│   └── mm/gui/               # Allgemeine grafische Oberfläche
+│       ├── menu/             # Menüs: Hauptmenü, Levelauswahl, Optionen
+│       └── widgets/          # Wiederverwendbare GUI-Elemente (Buttons, HUD)
+│
+├── resources/
+│   ├── mm/gui/               # FXML-Dateien (SceneBuilder) für GUI
+│   ├── assets/               # Alle Medien (Texturen, Fonts, Sounds)
+│   │   ├── textures/         # PNGs für Objekte
+│   │   ├── backgrounds/      # Hintergrundbilder
+│   │   └── fonts/            # Schriftdateien (.ttf, .otf)
+│   └── levels/               # Level-Dateien (z.B. JSON-basiert)
+│
+├── docs/                     # Projektdokumentation
+│   ├── Anforderungsdokument  # Anforderungsdokument (Blast-Off etc.)
+│   ├── sanity-checks.md      # Berichte über getestete Libraries und Tools
+│   └── *rest*                # UML-Diagramme, Skizzen, Architekturübersicht
+│
+├── scripts/                  # Hilfsskripte für Build, Launch, Setup
+│   └── run.sh                # Beispiel: Start mit JavaFX VM-Optionen
+│
+├── tests/                    # Unit- und Integrationstests
+│   ├── mm/core/              # Tests für Physik & Simulation
+│   ├── mm/editor/            # Tests für Editierfunktionen
+│   └── mm/game/              # Tests für Level-/Puzzlelogik
+│
+├── .gitignore                # Dateien und Ordner, die Git ignorieren soll
+├── README.md                 # Projektübersicht, Setup, Entwicklerhinweise
+└── pom.xml                  # Maven-Builddefinition (Abhängigkeiten, Plugins)
