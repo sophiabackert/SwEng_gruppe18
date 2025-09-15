@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="mm.gui.controller.LevelSelectionController"
+           styleClass="menu-background"
+           stylesheets="@../css/style.css">
+    
+    <!-- Level Grid -->
+    <GridPane hgap="30" vgap="30" alignment="CENTER">
+        <!-- First Row (Level 1-3) -->
+        <VBox alignment="CENTER" styleClass="level-box" onMouseClicked="#handleLevel1" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                <Image url="@../assets/thumbnails/Level1.png"/>
+            </ImageView>
+            <Label text="Level 1" styleClass="level-name"/>
+        </VBox>
+        
+        <VBox alignment="CENTER" styleClass="level-box" onMouseClicked="#handleLevel2" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                <Image url="@../assets/thumbnails/Level2.png"/>
+            </ImageView>
+            <Label text="Level 2" styleClass="level-name"/>
+        </VBox>
+        
+        <VBox alignment="CENTER" styleClass="level-box" onMouseClicked="#handleLevel3" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                <Image url="@../assets/thumbnails/Level3.png"/>
+            </ImageView>
+            <Label text="Level 3" styleClass="level-name"/>
+        </VBox>
+        
+        <!-- Second Row (Level 4-5 + Custom) -->
+        <VBox alignment="CENTER" styleClass="level-box" onMouseClicked="#handleLevel4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                <Image url="@../assets/thumbnails/Level4.png"/>
+            </ImageView>
+            <Label text="Level 4" styleClass="level-name"/>
+        </VBox>
+        
+        <VBox alignment="CENTER" styleClass="level-box" onMouseClicked="#handleLevel5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                <Image url="@../assets/thumbnails/Level5.png"/>
+            </ImageView>
+            <Label text="Level 5" styleClass="level-name"/>
+        </VBox>
+        
+        <VBox alignment="CENTER" styleClass="level-box" onMouseClicked="#handleCustomLevel" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <StackPane>
+                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                    <Image url="@../assets/thumbnails/LevelCostom.png"/>
+                </ImageView>
+                <Label text="+" styleClass="plus-label"/>
+            </StackPane>
+            <Label text="Custom" styleClass="level-name"/>
+        </VBox>
+    </GridPane>
+
+    <!-- Exit Button - Top Left -->
+    <Button fx:id="exitButton" text="Exit" onAction="#handleBack" 
+            styleClass="exit-button"
+            StackPane.alignment="TOP_LEFT">
+        <StackPane.margin>
+            <Insets top="50" left="50"/>
+        </StackPane.margin>
+    </Button>
+    
+</StackPane> 

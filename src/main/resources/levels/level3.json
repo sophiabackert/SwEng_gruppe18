@@ -1,0 +1,37 @@
+{
+  "name" : "My level",
+  "difficulty" : "EASY",
+  "objective" : "Reach the goal",
+  "objects" : [ {
+    "x" : 6.65,
+    "y" : 4.6,
+    "angle" : 0.0,
+    "static" : true,
+    "skinId" : "bucket",
+    "width" : 0.6,
+    "height" : 0.8,
+    "thickness" : 0.05,
+    "wallAngle" : 1.4835298
+  }, {
+    "x" : 6.66,
+    "y" : 2.82,
+    "angle" : 0.0,
+    "static" : false,
+    "radius" : 0.12,
+    "density" : 0.7,
+    "friction" : 0.2,
+    "restitution" : 0.55,
+    "skinId" : "tennisball"
+  } ],
+  "limits" : {
+    "bowlingball" : 3,
+    "bucket" : 3,
+    "balloon" : 3,
+    "log" : 3,
+    "billiardball" : 3,
+    "cratebox" : 3,
+    "domino" : 3,
+    "plank" : 3,
+    "tennisball" : 3
+  }
+}

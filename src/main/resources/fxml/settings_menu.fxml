@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mm.gui.controller.SettingsController"
+         styleClass="menu-background" stylesheets="@../css/style.css">
+
+    <VBox alignment="CENTER" spacing="30">
+        <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+        </padding>
+
+        <Label styleClass="title-label" text="Einstellungen"/>
+
+        <VBox spacing="20" alignment="CENTER">
+            <!-- FPS-Einstellung -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Bildrate (FPS)" styleClass="setting-label"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <Label text="30" styleClass="setting-value"/>
+                    <Slider fx:id="fpsSlider" min="30" max="120" value="60" prefWidth="300" 
+                            styleClass="setting-slider"/>
+                    <Label text="120" styleClass="setting-value"/>
+                </HBox>
+                <Label fx:id="fpsLabel" text="60 FPS" styleClass="setting-display"/>
+            </VBox>
+
+            <!-- Slow Motion Toggle -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Zeitlupe" styleClass="setting-label"/>
+                <ToggleButton fx:id="slowMotionToggle" text="Normal" 
+                             styleClass="setting-toggle" prefWidth="150"/>
+                <Label text="Simulation läuft bei 0.25-facher Geschwindigkeit" styleClass="setting-description"/>
+            </VBox>
+        </VBox>
+    </VBox>
+
+    <!-- Exit Button - Top Left -->
+    <Button text="Exit" onAction="#handleBack" 
+            styleClass="exit-button"
+            StackPane.alignment="TOP_LEFT">
+        <StackPane.margin>
+            <Insets top="50" left="50"/>
+        </StackPane.margin>
+    </Button>
+</StackPane> 

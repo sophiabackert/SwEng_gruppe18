@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Grundlayout: zwei Spalten nebeneinander -->
+<HBox xmlns="http://javafx.com/javafx/11"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="mm.gui.controller.LevelEditorController"
+      stylesheets="@../css/style.css"
+      styleClass="level-editor-background">
+
+    <!-- ===================== linke Spalte ===================== -->
+    <VBox fx:id="leftColumn" HBox.hgrow="ALWAYS">
+
+        <!-- Toolbar ganz oben (nimmt nur linke Spaltenbreite ein) -->
+        <ToolBar prefHeight="80" styleClass="editor-toolbar">
+            <Button text="Exit"  onAction="#handleBack"   styleClass="editor-button"/>
+            <Separator orientation="VERTICAL"/>
+            <Button text="Reset" onAction="#handleReset" styleClass="editor-button"/>
+            <Button text="Load"  onAction="#handleLoad"  styleClass="editor-button"/>
+            <Button text="Save"  onAction="#handleSave"  styleClass="editor-button"/>
+
+            <Region fx:id="toolBarSpacer" HBox.hgrow="ALWAYS"/>
+            <Button text="Limits" onAction="#handleObjectLimits" styleClass="editor-button"/>
+        </ToolBar>
+
+        <!-- Spielfeld + untere Buttons -->
+        <StackPane fx:id="canvasRoot" VBox.vgrow="ALWAYS">
+
+            <!-- Spielfeld -->
+            <Pane fx:id="editorCanvas"
+                prefWidth="1200" prefHeight="675"
+                pickOnBounds="true"
+                styleClass="editor-canvas"
+                StackPane.alignment="TOP_CENTER">
+                <StackPane.margin>
+                <Insets top="25"/>
+                </StackPane.margin>
+                <padding>
+                    <Insets top="20" left="40" right="40" bottom="40"/>
+                </padding>
+            </Pane>
+
+            <!-- Untere Buttonleiste -->
+            <HBox alignment="BOTTOM_CENTER" spacing="0" StackPane.alignment="BOTTOM_CENTER" pickOnBounds="false">
+                <HBox alignment="BOTTOM_LEFT" spacing="20" HBox.hgrow="ALWAYS" pickOnBounds="false">
+                    <padding><Insets left="40" bottom="10"/></padding>
+                    <Button fx:id="undoButton" text="u" onAction="#handleUndo"  styleClass="circle-button" />
+                    <Button fx:id="redoButton" text="r" onAction="#handleRedo"  styleClass="circle-button" />
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" mouseTransparent="true"/>
+                <HBox alignment="BOTTOM_RIGHT" spacing="20" HBox.hgrow="ALWAYS" pickOnBounds="false">
+                    <padding><Insets right="40" bottom="10"/></padding>
+                    <Button fx:id="rotateLeftButton" text="⟲" onAction="#handleRotateLeft" styleClass="circle-button" />
+                    <Button fx:id="rotateRightButton" text="⟳" onAction="#handleRotateRight" styleClass="circle-button" />
+                </HBox>
+            </HBox>
+        </StackPane>
+    </VBox>
+
+    <!-- ===================== rechte Spalte (Sidebar) ===================== -->
+    <VBox fx:id="sidebar" styleClass="sidebar-wide" prefWidth="260">
+        <Label text="Items" styleClass="sidebar-title"/>
+        <ScrollPane fitToWidth="true" fitToHeight="true"
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    VBox.vgrow="ALWAYS" styleClass="items-scroll-wide">
+            <VBox fx:id="itemsContainer" spacing="14" styleClass="items-container-wide">
+                <padding><Insets right="30"/></padding>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+
+</HBox>
