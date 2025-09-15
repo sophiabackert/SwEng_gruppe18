@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mm.gui.LevelSelectionController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <Text styleClass="title" text="Level Auswahl"/>
+    
+    <ProgressIndicator fx:id="loadingIndicator" visible="false" />
+    
+    <ScrollPane fitToWidth="true">
+        <GridPane fx:id="levelGrid" hgap="10" vgap="10" alignment="CENTER">
+            <!-- Level-Vorschauen werden hier dynamisch hinzugefügt -->
+        </GridPane>
+    </ScrollPane>
+    
+    <!-- Import-Bereich für benutzerdefinierte Level -->
+    <VBox alignment="CENTER" spacing="10" styleClass="import-section">
+        <Label text="Eigene Level importieren" styleClass="section-title"/>
+        <HBox alignment="CENTER" spacing="10">
+            <Button fx:id="importButton" text="Level importieren" onAction="#onImportLevel" styleClass="import-button"/>
+            <Region prefWidth="20"/> <!-- Abstand -->
+            <Label fx:id="dropZoneLabel" text="oder Level hierher ziehen" styleClass="drop-zone-label"/>
+        </HBox>
+        <Pane fx:id="dropZone" styleClass="drop-zone"/>
+    </VBox>
+    
+    <Button fx:id="backButton" text="Zurück zum Hauptmenü" onAction="#onBackClick" styleClass="menu-button"/>
+</VBox> 

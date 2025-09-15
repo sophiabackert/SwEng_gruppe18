@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="mm.gui.LevelEditorController" stylesheets="@../css/style.css"
+            fx:id="rootPane">
+    <!-- Toolbar am oberen Rand -->
+    <top>
+        <VBox>
+            <ToolBar>
+                <Button text="Zurück" onAction="#onBack" styleClass="editor-button"/>
+                <Separator orientation="VERTICAL"/>
+                <Button text="Neu" onAction="#onNewLevel" styleClass="editor-button"/>
+                <Button text="Laden" onAction="#onLoadLevel" styleClass="editor-button"/>
+                <Button text="Speichern" onAction="#onSaveLevel" styleClass="editor-button"/>
+                <Separator orientation="VERTICAL"/>
+                <Button fx:id="undoButton" text="Rückgängig" onAction="#onUndo" styleClass="editor-button"/>
+                <Button fx:id="redoButton" text="Wiederholen" onAction="#onRedo" styleClass="editor-button"/>
+                <Separator orientation="VERTICAL"/>
+                <Button fx:id="playButton" text="Play" onAction="#onPlay" styleClass="editor-button"/>
+            </ToolBar>
+            
+            <!-- Level-Metadaten -->
+            <GridPane hgap="10" vgap="5">
+                <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                <Label text="Level-Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="levelNameField" promptText="Name des Levels" 
+                          GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                
+                <Label text="Schwierigkeit:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <ComboBox fx:id="difficultyComboBox" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                
+                <Label text="Aufgabe:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextArea fx:id="taskDescriptionArea" promptText="Beschreibung der Level-Aufgabe" 
+                         prefRowCount="2" wrapText="true"
+                         GridPane.columnIndex="1" GridPane.rowIndex="1" 
+                         GridPane.columnSpan="3"/>
+            </GridPane>
+        </VBox>
+    </top>
+    
+    <!-- Hauptbereich mit Spielfeld und Inventar -->
+    <center>
+        <StackPane>
+            <!-- Spielfeld mit fester Größe und Rahmen -->
+            <Pane fx:id="editorCanvas" prefWidth="800" prefHeight="600" 
+                  styleClass="game-field" 
+                  style="-fx-background-color: #f0f0f0; -fx-border-color: #666666; -fx-border-width: 2;">
+                <!-- Platzhalter für Spielobjekte -->
+            </Pane>
+        </StackPane>
+    </center>
+    
+    <!-- Objektpalette auf der linken Seite -->
+    <left>
+        <VBox spacing="10" styleClass="object-palette-panel">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Objektpalette" styleClass="section-title"/>
+            <VBox fx:id="objectPalette" spacing="5" styleClass="object-palette"/>
+            
+            <Separator/>
+            
+            <Label text="Eigenschaften" styleClass="section-title"/>
+            <VBox fx:id="propertyEditor" spacing="5" styleClass="property-editor"/>
+        </VBox>
+    </left>
+    
+    <!-- Inventar auf der rechten Seite -->
+    <right>
+        <VBox spacing="10" styleClass="inventory-panel">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Inventar" styleClass="section-title"/>
+            <ListView fx:id="inventoryList" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </right>
+</BorderPane> 

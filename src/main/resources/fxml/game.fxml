@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mm.gui.controller.GameController" styleClass="simulation-background" stylesheets="@../css/style.css">
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mm.gui.GameController">
    <children>
       <!-- Haupt-Container -->
       <BorderPane fx:id="mainContainer">

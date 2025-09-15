@@ -1,0 +1,67 @@
+{
+  "name": "Hard Level 1",
+  "difficulty": "HARD",
+  "description": "Nutze die Kette von Objekten, um den Ball zum Ziel zu bringen",
+  "objects": [
+    {
+      "type": "BowlingBall",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "properties": {
+        "density": 2.0,
+        "friction": 0.1,
+        "restitution": 0.9
+      }
+    },
+    {
+      "type": "Box",
+      "position": {
+        "x": 300,
+        "y": 200
+      },
+      "properties": {
+        "density": 1.5,
+        "friction": 0.3,
+        "restitution": 0.4
+      }
+    },
+    {
+      "type": "Plank",
+      "position": {
+        "x": 500,
+        "y": 300
+      },
+      "properties": {
+        "density": 2.0,
+        "friction": 0.4,
+        "restitution": 0.3
+      }
+    },
+    {
+      "type": "Box",
+      "position": {
+        "x": 600,
+        "y": 400
+      },
+      "properties": {
+        "density": 1.5,
+        "friction": 0.3,
+        "restitution": 0.4
+      }
+    },
+    {
+      "type": "Bucket",
+      "position": {
+        "x": 700,
+        "y": 500
+      },
+      "properties": {
+        "density": 0.0,
+        "friction": 0.5,
+        "restitution": 0.1
+      }
+    }
+  ]
+}

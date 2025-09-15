@@ -1,4 +1,12 @@
-# Mad Machines - Hinweise zu Release I:
+# Mad Machines - Hinweise zu Release II:
+
+Unser Mad-Machines-Prototyp verfügt inzwischen über sämtliche Kernfunktionen. Im integrierten Editor lassen sich Levels komfortabel gestalten und als Custom-Levels abspeichern: Für jedes Objekt können Position, Rotations­winkel und sämtliche physikalischen Parameter frei definiert werden; zugleich ist das Inventar pro Objektart begrenzbar. Im Level-Select-Menü haben die Spielenden die Wahl zwischen vorgefertigten Szenarien und eigenen Importen. Zum Testen stehen bereits zwei Demo-Levels bereit: Level 1 dient als offene Spielwiese für neue Funktionen, während Level 2 eine vollständig lösbare Konfiguration enthält, mit der sich die Win-Logik schnell überprüfen lässt.
+
+Für Release III stehen noch einige Feinarbeiten an. Zunächst müssen die Objekt-Sprites aktualisiert und so eingebunden werden, dass ihre Rotation exakt mit der physikalischen Ausrichtung übereinstimmt. Außerdem gilt es, die bislang zugunsten der Übersichtlichkeit ausgesparten JavaDoc-Kommentare nachzutragen und die technische Dokumentation – inklusive Architektur- und Klassendiagrammen – zu vervollständigen. Die Codebasis erhält eine Testabdeckung durch automatisierte Unit- und Integrations­tests, die in die CI-Pipeline integriert werden. Schließlich werden umfangreiche Methoden, die derzeit noch in den Controller-Klassen liegen, in schlanke Service-Klassen ausgelagert, um die Projektstruktur klarer und wartbarer zu gestalten.
+
+
+## ENDE Hinweise zu Release II
+
 
 ## Sanity Checks
 In dieser Datei sind alle durchgeführten Sanity Checks dokumentiert. Jeder von uns hat sich mit neuen Tools (z.B. Maven, JavaFX, jBox2D) vertraut gemacht und das Vorgehen festgehalten. Ziel war es, mögliche Risiken frühzeitig zu erkennen.

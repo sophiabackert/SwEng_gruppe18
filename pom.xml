@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- the id of the project's group -->
-    <groupId>group00</groupId>
+    <groupId>group18</groupId>
     <!-- the id of the artifact (project) -->
     <artifactId>mm</artifactId>
     <!-- the version of the artifact under the specified group -->
@@ -15,34 +15,36 @@
     <properties>
         <!-- Set file encoding for all source files. This avoids warnings about Maven copying files without knowing their encoding. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <javafx.version>21.0.3</javafx.version>
     </properties>
 
     <dependencies>
+        <!-- JUnit 5 - Unified dependency -->
         <dependency>
-            <!-- JUnit 5 API - see https://junit.org/junit5/docs/current/user-guide/ -->
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.7.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- JUnit 5 Engine - see https://junit.org/junit5/docs/current/user-guide/ -->
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.7.1</version>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <!-- JavaFX 17 (compatible with Apple Silicon) -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.12</version>
+            <version>${javafx.version}</version>
         </dependency>
-        <!-- java.fxml -->
+        <!-- java.fx fxml -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.12</version>
+            <version>${javafx.version}</version>
+        </dependency>
+        <!-- java.fx media for audio support -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
         </dependency>
         <!-- jbox2d (Box2D Java Port) - see https://mvnrepository.com/artifact/org.jbox2d/jbox2d-library -->
         <dependency>
@@ -50,13 +52,59 @@
             <artifactId>jbox2d-library</artifactId>
             <version>2.2.1.1</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
-
+        <!-- TestFX für JavaFX-Tests -->
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-core</artifactId>
+            <version>4.0.16-alpha</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit5</artifactId>
+            <version>4.0.16-alpha</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.erosb</groupId>
+            <artifactId>everit-json-schema</artifactId>
+            <version>1.14.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.erosb</groupId>
+            <artifactId>everit-json-schema-jdk6</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>1.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.16.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.17.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -109,35 +157,27 @@
                 <!-- Maven plugin to run JavaFX 11+ applications -->
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.5</version>
+                <version>0.0.8</version>
                 <configuration>
-                    <!-- Strips debug information out when building with JLink -->
-                    <stripDebug>true</stripDebug>
-                    <!-- Use maximal compression level of the resources being used -->
-                    <compress>2</compress>
-                    <!-- Remove the includes directory in the resulting runtime image. -->
-                    <noHeaderFiles>true</noHeaderFiles>
-                    <!-- Removes the man directory in the resulting runtime image -->
-                    <noManPages>true</noManPages>
-                    <!-- Adds a launcher script with the given name -->
-                    <launcher>mm</launcher>
-                    <!-- The name of the folder with the resulting runtime image -->
-                    <jlinkImageName>mm</jlinkImageName>
-                    <!-- Create a zip of the resulting runtime image -->
-                    <jlinkZipName>mm</jlinkZipName>
-                    <!-- The main class, fully qualified name -->
-                    <mainClass>mm/mm.app.Main</mainClass>
-                    <!-- Make command line arguments setable with -Dargs="" -->
-                    <commandlineArgs>${args}</commandlineArgs>
+                    <executable>${JAVA_HOME}/bin/java</executable>
+                    <mainClass>mm.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
+                <!-- Automated JavaDoc with "mvn javadoc:javadoc" -->
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <reportOutputDirectory>${project.basedir}/docs/javadoc</reportOutputDirectory>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>javadoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

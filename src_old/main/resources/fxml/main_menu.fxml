@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mm.gui.GuiMainMenuController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="120.0"/>
+    </padding>
+
+    <Text styleClass="title" text="Mad Machines"/>
+    
+    <Button fx:id="startGameButton" text="Spiel starten" onAction="#onPlayClick" styleClass="menu-button"/>
+    <Button fx:id="levelEditorButton" text="Level Editor" onAction="#onLevelEditorClick" styleClass="menu-button"/>
+    <Button text="Einstellungen" onAction="#handleSettings" styleClass="menu-button"/>
+    <Button fx:id="exitButton" text="Beenden" onAction="#onExitClick" styleClass="menu-button"/>
+</VBox> 

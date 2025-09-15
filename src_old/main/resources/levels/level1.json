@@ -1,0 +1,43 @@
+{
+  "name": "Medium Level 1",
+  "difficulty": "MEDIUM",
+  "description": "Nutze die Planke, um den Ball zum Ziel zu lenken",
+  "objects": [
+    {
+      "type": "BilliardBall",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "properties": {
+        "density": 1.0,
+        "friction": 0.2,
+        "restitution": 0.8
+      }
+    },
+    {
+      "type": "Plank",
+      "position": {
+        "x": 400,
+        "y": 300
+      },
+      "properties": {
+        "density": 2.0,
+        "friction": 0.4,
+        "restitution": 0.3
+      }
+    },
+    {
+      "type": "Bucket",
+      "position": {
+        "x": 700,
+        "y": 500
+      },
+      "properties": {
+        "density": 0.0,
+        "friction": 0.5,
+        "restitution": 0.1
+      }
+    }
+  ]
+}

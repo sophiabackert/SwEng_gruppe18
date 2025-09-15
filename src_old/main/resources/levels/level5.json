@@ -1,0 +1,31 @@
+{
+  "name": "Easy Level 1",
+  "difficulty": "EASY",
+  "description": "Bringe den Ball zum Ziel",
+  "objects": [
+    {
+      "type": "TennisBall",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "properties": {
+        "density": 1.0,
+        "friction": 0.3,
+        "restitution": 0.7
+      }
+    },
+    {
+      "type": "Bucket",
+      "position": {
+        "x": 600,
+        "y": 500
+      },
+      "properties": {
+        "density": 0.0,
+        "friction": 0.5,
+        "restitution": 0.1
+      }
+    }
+  ]
+}

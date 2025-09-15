@@ -1,74 +1,117 @@
 package mm.gui;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
+import mm.core.json.LevelValidator;
+import java.io.File;
 
 /**
- * The type Level selection controller.
+ * Controller für die Level-Auswahl.
  */
-public class LevelSelectionController {
+public class LevelSelectionController extends Controller {
 
-    /**
-     * Button level 1 on action.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
-    public void buttonLevel1OnAction(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/levels/main.fxml"));
-        Parent mainRoot = fxmlLoader.load();
+    @FXML
+    private Button exitButton;
 
-        //ich möchte nicht den gespeicherten Spielstand laden
-        //GuiController controller = fxmlLoader.getController();
-        //controller.loadLevel("level1.json");
+    @FXML
+    private void handleBack() {
+        System.out.println("Zurück zum Hauptmenü");
+        if (viewManager != null) {
+            viewManager.showMainMenu();
+        }
+    }
+    
+    @FXML
+    private void handleLevel1() {
+        System.out.println("Level 1 ausgewählt");
+        if (viewManager != null) {
+            viewManager.showGameEditorWithLevel("level1.json");
+        }
+    }
+    
+    @FXML
+    private void handleLevel2() {
+        System.out.println("Level 2 ausgewählt");
+        if (viewManager != null) {
+            viewManager.showGameEditorWithLevel("level2.json");
+        }
+    }
+    
+    @FXML
+    private void handleLevel3() {
+        System.out.println("Level 3 ausgewählt");
+        if (viewManager != null) {
+            viewManager.showGameEditorWithLevel("level3.json");
+        }
+    }
+    
+    @FXML
+    private void handleLevel4() {
+        System.out.println("Level 4 ausgewählt");
+        if (viewManager != null) {
+            viewManager.showGameEditorWithLevel("level4.json");
+        }
+    }
+    
+    @FXML
+    private void handleLevel5() {
+        System.out.println("Level 5 ausgewählt");
+        if (viewManager != null) {
+            viewManager.showGameEditorWithLevel("level5.json");
+        }
+    }
+    
+    @FXML
+    private void handleCustomLevel() {
+        System.out.println("Custom Level ausgewählt");
+        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Level importieren");
+        fileChooser.getExtensionFilters().add(
+            new FileChooser.ExtensionFilter("JSON Level-Dateien", "*.json")
+        );
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(mainRoot);
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
+        File file = fileChooser.showOpenDialog(exitButton.getScene().getWindow());
+        if (file != null) {
+            try {
+                // Validiere die JSON-Datei
+                if (!LevelValidator.isValidLevelFile(file)) {
+                    showAlert("Ungültiges Level-Format", "Die ausgewählte Datei enthält kein gültiges Level-Format.");
+                    return;
+                }
 
-        //scene.getStylesheets().add(getClass().getResource("/assets/main.css").toExternalForm());
-        //System.out.println(getClass().getResource("/assets/main.css"));
+                // Kopiere die Datei in den resources/levels Ordner
+                File targetDir = new File("src/main/resources/levels");
+                if (!targetDir.exists()) {
+                    targetDir.mkdirs();
+                }
+                
+                String fileName = "custom_" + file.getName();
+                File targetFile = new File(targetDir, fileName);
+                java.nio.file.Files.copy(
+                    file.toPath(), 
+                    targetFile.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                );
 
+                // Öffne das Level im GameEditor
+                if (viewManager != null) {
+                    viewManager.showGameEditorWithLevel(fileName);
+                }
+            } catch (IllegalArgumentException ex) {
+                showAlert("Fehler", "Ungültiges Level-Format: " + ex.getMessage());
+            } catch (java.io.IOException ex) {
+                showAlert("Fehler", "Fehler beim Laden des Levels: " + ex.getMessage());
+            }
+        }
     }
 
-    /**
-     * Back button on action.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
-    public void backButtonOnAction(ActionEvent event) throws IOException {
-        FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("/mm/gui/mainMenu.fxml"));
-        Parent menuRoot = menuLoader.load();
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(menuRoot);
-        stage.setScene(scene);
-        stage.show();
+    private void showAlert(String title, String content) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
-
-    public void Level2OnAction(ActionEvent actionEvent) throws IOException {
-        System.out.println("Level 2 starten");
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/levels/level2.fxml"));
-        Parent level2Root = loader.load();
-
-        //Level2 controller = loader.getController();
-        //controller.loadLevel("level2.json");
-
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(level2Root);
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-
-    }
-}
+} 

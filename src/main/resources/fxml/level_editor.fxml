@@ -5,11 +5,10 @@
 <?import javafx.scene.layout.*?>
 
 <!-- Grundlayout: zwei Spalten nebeneinander -->
-<HBox xmlns="http://javafx.com/javafx/11"
+<HBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="mm.gui.controller.LevelEditorController"
-      stylesheets="@../css/style.css"
-      styleClass="level-editor-background">
+      fx:controller="mm.gui.LevelEditorController"
+      stylesheets="@../css/style.css">
 
     <!-- ===================== linke Spalte ===================== -->
     <VBox fx:id="leftColumn" HBox.hgrow="ALWAYS">
@@ -42,6 +41,12 @@
                     <Insets top="20" left="40" right="40" bottom="40"/>
                 </padding>
             </Pane>
+
+            <!-- Hinweis-Label in der Mitte -->
+            <Label fx:id="hintLabel" 
+                   style="-fx-background-color: rgba(0,0,0,0.7); -fx-text-fill: white; -fx-padding: 10;"
+                   visible="false"
+                   StackPane.alignment="CENTER" />
 
             <!-- Untere Buttonleiste -->
             <HBox alignment="BOTTOM_CENTER" spacing="0" StackPane.alignment="BOTTOM_CENTER" pickOnBounds="false">

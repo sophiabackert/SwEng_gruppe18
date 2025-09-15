@@ -69,7 +69,7 @@ Ziel: Grundlegende Integration und Funktionsweise der jBox2D-Bibliothek überpr�
 
 - Welt und Beispielkörper zum Testen erstellt und einfache Kollisionen simuliert.
 
-  (hier ist der Link zum gesamten Code [JBox2D Sanity Check](../src/main/java/mm/core/physics/JBox2D_Sanity_Check.java)):
+  (hier ist der Link zum gesamten Code [JBox2D Sanity Check](../src/main/java/Old/core/physics/JBox2D_Sanity_Check.java)):
 
   - Eine einfache Welt mit Schwerkraft (Vec2(0, -10)) erstellt.
   - Statischen Bodenkörper erzeugt.
