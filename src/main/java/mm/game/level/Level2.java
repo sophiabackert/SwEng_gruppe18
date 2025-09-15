@@ -1,4 +1,4 @@
-package mm.gui;
+package mm.game.level;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,23 +15,17 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-import mm.game.level.GameStateService;
-import mm.game.level.Level2;
-import mm.game.level.LevelControllerInterface;
-import mm.game.level.LevelStorage;
 
 import java.io.IOException;
 import java.util.List;
 
-/**
- * The Gui controller for the main.fxml
- */
-public class GuiController implements LevelControllerInterface {
+public class Level2 implements LevelControllerInterface {
 
     @FXML private AnchorPane gamePane;
+    @FXML private Rectangle template;
+    @FXML private BorderPane borderPane;
     @FXML private Rectangle placeBeam;
     @FXML private VBox inventoryBox;
-    @FXML private BorderPane borderPane;
     @FXML private AnchorPane bottomPane;
     @FXML private Group scaleGroup;
     @FXML private Group inventoryScaleGroup;
@@ -39,15 +33,10 @@ public class GuiController implements LevelControllerInterface {
     @FXML private Button pauseButton;
     @FXML private Button resetButton;
     @FXML private Button playButton;
-    @FXML private Rectangle template;
 
     private final double BASE_WIDTH = 600;
     private final double BASE_HEIGHT = 400;
 
-    /**
-     * Initialize
-     * richtet Layout-Bindungen und Drag-and-Drop für das Spielfeld ein
-     */
     @FXML
     public void initialize() {
         //Größe des Spielfeldes dynamisch verändern
@@ -126,88 +115,20 @@ public class GuiController implements LevelControllerInterface {
         });
     }
 
-    private void updateScale(Scale gameScale, Scale inventoryScale) {
-        double scaleX = borderPane.getWidth() / BASE_WIDTH;
-        double scaleY = borderPane.getHeight() / BASE_HEIGHT;
-        double scaleFactor = Math.min(scaleX, scaleY);
 
-        gameScale.setX(scaleFactor);
-        gameScale.setY(scaleFactor);
-        inventoryScale.setX(scaleFactor);
-        inventoryScale.setY(scaleFactor);
-    }
-
-
-    /**
-     * Sperrt das Spielfeld nach Klick auf den Play-Button.
-     */
     @FXML
-    private void playButtononAction() {
-        System.out.println("Play Button wurde geklickt!");
+    public void exitButtonOnAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mm/gui/mainMenu.fxml"));
+        Parent mainMenu = fxmlLoader.load();
 
-        // Spielfeld kann nicht mehr verändert werden
-        gamePane.setDisable(true);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(mainMenu);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    /**
-     * Event-Handler für den Reset-Button.
-     * Entfernt alle Rechtecke im {@code gamePane}, die nicht zu den ursprünglichen
-     * Inventar-Balken gehören (basierend auf ihrer ID).
-     * wird aufgerufen, wenn der Reset-Button im UI gedrückt wird
-     */
-    @FXML
-    private void resetButtononAction() {
-        gamePane.getChildren().removeIf(node -> {
-            if (node instanceof Rectangle) {
-                Rectangle rect = (Rectangle) node;
-                return rect.getId() == null || !List.of(
-                        "balken1", "balken2", "balken3", "balken4", "balken5",
-                        "balken6", "balken7", "balken8", "balken9", "balken10"
-                ).contains(rect.getId());
-            }
-            return false;
-        });
-    }
-
-    /**
-     * when Exit Button clicked, the main Menu screen will be loaded
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
-    public void exitButtonOnAction(ActionEvent event) throws IOException {
-        gamePane.getChildren().removeIf(node -> {
-            if (node instanceof Rectangle rect) {
-                return rect.getId() == null || !List.of(
-                        "balken1", "balken2", "balken3", "balken4", "balken5",
-                        "balken6", "balken7", "balken8", "balken9", "balken10"
-                ).contains(rect.getId());
-            }
-            return false;
-        });
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mm/gui/mainMenu.fxml"));
-            Parent mainMenu = fxmlLoader.load();
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(mainMenu);
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Pause button on action.
-     *
-     * @param actionEvent the action event
-     * @throws IOException the io exception
-     */
     public void pauseButtonOnAction(ActionEvent actionEvent) throws IOException {
-        String levelFilename = "level1.json";
+        String levelFilename = "level2.json";
 
         GameStateService.saveGameState(gamePane, levelFilename); //Spielstand speichern
         LevelStorage.setLastLevelFile(levelFilename);
@@ -223,53 +144,27 @@ public class GuiController implements LevelControllerInterface {
         stage.show();
     }
 
-    public String levelToLoad;
-
-    public void setLevelToLoad(String filename) {
-        this.levelToLoad = filename;
-    }
-
-    public void initAfterLoad() {
-        System.out.println("initAfterLoad called with levelToLoad = " + levelToLoad);
-        if (levelToLoad != null) {
-            loadLevel(levelToLoad);
-        }
-    }
-
-
-    /**
-     * Aktiviert das Drag-and-Drop-Verhalten für ein {@link Rectangle},
-     * sodass es mit der Maus innerhalb des {@code gamePane} verschoben werden kann.
-     *
-     * Beim Drücken der Maus werden die Positionsoffsets gespeichert,
-     * und beim Ziehen wird das Rechteck entsprechend der Mausposition aktualisiert.
-     *
-     * @param rect Das {@link Rectangle}, das beweglich gemacht werden soll.
-     */
-    public void enableDrag(Rectangle rect) {
-        final double[] offsetX = new double[1];
-        final double[] offsetY = new double[1];
-
-        rect.setOnMousePressed(e -> {
-            offsetX[0] = e.getX();
-            offsetY[0] = e.getY();
-        });
-
-        rect.setOnMouseDragged(e -> {
-            rect.setLayoutX(e.getSceneX() - gamePane.localToScene(gamePane.getBoundsInLocal()).getMinX() - offsetX[0]);
-            rect.setLayoutY(e.getSceneY() - gamePane.localToScene(gamePane.getBoundsInLocal()).getMinY() - offsetY[0]);
+    @FXML
+    private void resetButtonOnAction() {
+        gamePane.getChildren().removeIf(node -> {
+            if (node instanceof Rectangle) {
+                Rectangle rect = (Rectangle) node;
+                return rect.getId() == null || !List.of(
+                        "balken1", "balken2", "balken3", "balken4", "balken5",
+                        "balken6", "balken7", "balken8", "balken9", "balken10"
+                ).contains(rect.getId());
+            }
+            return false;
         });
     }
 
-    @Override
-    public void loadLevel(String filename) {
-        //System.out.println("Loading level from file: " + filename);
-        GameStateService.loadGameState(gamePane, template, dragHandler, filename);
+    @FXML
+    public void playButtonOnAction(ActionEvent actionEvent) {
+        gamePane.setDisable(true);
     }
-
 
     private final GameStateService.EnableDragHandler dragHandler = rect -> {
-        final GuiController.Delta dragDelta = new GuiController.Delta();
+        final Delta dragDelta = new Delta();
 
         rect.setOnMousePressed(event -> {
             dragDelta.x = rect.getLayoutX() - event.getSceneX();
@@ -284,6 +179,50 @@ public class GuiController implements LevelControllerInterface {
 
     private static class Delta {
         double x, y;
+    }
+
+    @Override
+    public void loadLevel(String filename) {
+        GameStateService.loadGameState(gamePane, template, dragHandler, filename);
+    }
+
+    public String levelToLoad;
+
+    public void setLevelToLoad(String filename) {
+        this.levelToLoad = filename;
+    }
+
+    public void initAfterLoad() {
+        System.out.println("initAfterLoad called with levelToLoad = " + levelToLoad);
+        if (levelToLoad != null) {
+            loadLevel(levelToLoad);
+        }
+    }
+
+    private void updateScale(Scale gameScale, Scale inventoryScale) {
+        double scaleX = borderPane.getWidth() / BASE_WIDTH;
+        double scaleY = borderPane.getHeight() / BASE_HEIGHT;
+        double scaleFactor = Math.min(scaleX, scaleY);
+
+        gameScale.setX(scaleFactor);
+        gameScale.setY(scaleFactor);
+        inventoryScale.setX(scaleFactor);
+        inventoryScale.setY(scaleFactor);
+    }
+
+    public void enableDrag(Rectangle rect) {
+        final double[] offsetX = new double[1];
+        final double[] offsetY = new double[1];
+
+        rect.setOnMousePressed(e -> {
+            offsetX[0] = e.getX();
+            offsetY[0] = e.getY();
+        });
+
+        rect.setOnMouseDragged(e -> {
+            rect.setLayoutX(e.getSceneX() - gamePane.localToScene(gamePane.getBoundsInLocal()).getMinX() - offsetX[0]);
+            rect.setLayoutY(e.getSceneY() - gamePane.localToScene(gamePane.getBoundsInLocal()).getMinY() - offsetY[0]);
+        });
     }
 
 

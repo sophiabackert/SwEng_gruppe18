@@ -1,0 +1,18 @@
+
+
+.inventoryBox{
+    -fx-background-color: #bcbcbc;
+    -fx-border-color: black;
+}
+
+.label{
+    -fx-text-fill: white;
+    -fx-background-color: #838181;
+}
+.placeBeam{
+    -fx-fill: #5664b5;
+}
+
+.controlpanel{
+    -fx-background-color: #bcbcbc;
+}

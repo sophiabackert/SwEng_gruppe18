@@ -1,24 +1,18 @@
 package mm.app;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import mm.gui.controller.ViewManager;
+import mm.gui.Gui;
 
-public class Main extends Application {
-
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Mad Machines");
-        primaryStage.setWidth(1280);
-        primaryStage.setHeight(720);
-        
-        ViewManager viewManager = ViewManager.getInstance();
-        viewManager.initialize(primaryStage);
-        
-        viewManager.switchToMainMenu();
-    }
-
+/**
+ * The common starting point of the GUI.
+ */
+public class Main {
+    /**
+     * The external entry point of the application.
+     * @param args The command line arguments passed to the application.
+     */
     public static void main(String[] args) {
-        launch(args);
+        System.out.println("Starting...");
+        Gui.main(args);
+        System.out.println("Exiting...");
     }
 }
